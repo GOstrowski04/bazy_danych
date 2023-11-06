@@ -20,3 +20,12 @@ Blok kodu
 SELECT * FROM osoba;
 ```
 Kod umieszczany liniowo. Polecenie `SELECT` oznacza wybranie danych z bazy.
+
+```sql
+describe postac;
+create table postac();
+alter table walizka alter kolor set default "rozowy";
+show create table walizka;
+update postac set id_postaci=2 where id_postaci=3;
+insert into postac() values();
+```
