@@ -28,4 +28,13 @@ alter table walizka alter kolor set default "rozowy";
 show create table walizka;
 update postac set id_postaci=2 where id_postaci=3;
 insert into postac() values();
+
+create table izba (
+adres_budynku varchar(100),
+nazwa_izby varchar(100),
+primary key(adres_budynku, nazwa_izby),
+metraz int unsigned,
+wlasciciel int,
+foreign key (wlasciciel) references postac(id_postaci) on delete set null
+);
 ```
