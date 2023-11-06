@@ -37,4 +37,8 @@ metraz int unsigned,
 wlasciciel int,
 foreign key (wlasciciel) references postac(id_postaci) on delete set null
 );
+alter table izba add kolor_izby varchar(30) AFTER metraz;
+alter table alter kolor_izby set default "czarny";
+
+
 ```
