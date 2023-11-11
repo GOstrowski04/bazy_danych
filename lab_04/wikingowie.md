@@ -40,4 +40,13 @@ ALTER TABLE postac ADD funkcja varchar(100);
 UPDATE postac SET funkcja='kapitan' WHERE id_postaci=1;
 ALTER TABLE postac ADD  statek;
 ALTER TABLE postac ADD foreign key(statek) REFERENCES statek(nazwa_statku);
+UPDATE postac SET statek='statek1' WHERE id_postaci=1;
+UPDATE postac SET statek='statek1' WHERE id_postaci=2;
+UPDATE postac SET statek='statek1' WHERE id_postaci=4;
+UPDATE postac SET statek='statek2' WHERE id_postaci=5;
+UPDATE postac SET statek='statek2' WHERE id_postaci=6;
+UPDATE postac SET statek='statek2' WHERE id_postaci=7;
+UPDATE postac SET statek='statek2' WHERE id_postaci=8;
+DELETE FROM izba WHERE nazwa_izby='spizarnia';
+DROP TABLE izba;
 ```
