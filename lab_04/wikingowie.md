@@ -5,14 +5,14 @@ CREATE TABLE postac(id_postaci int primary key auto_increment, nazwa varchar(40)
 INSERT INTO postac VALUES(default, 'Bjorn', 'wiking', '1700-06-23', 323);
 INSERT INTO postac VALUES(default, 'Drozd', 'ptak', '1975-08-20', 20); 
 INSERT INTO postac VALUES(default, 'Tesciowa', 'kobieta', '1960-03-09', 45); 
-UPDATE postac SET wiek=88 WHERE nazwa='Tesciowa');
+UPDATE postac SET wiek=88 WHERE nazwa='Tesciowa';
 ```
 ## Zadanie 2
 ```sql
 CREATE TABLE walizka(id_walizki int primary key auto_increment, pojemnosc int unsigned, kolor enum('rozowy', 'czerwony', 'teczowy', 'zolty'), id_wlasciciela, foreign key(id_wlasciciela) references postac(id_postaci) ON DELETE CASCADE);
 ALTER TABLE walizka ALTER kolor SET DEFAULT 'rozowy';
-INSERT INTO walizka(default, 10, 'czerwony', 1);
-INSERT INTO walizka(default, 20, default, 3);
+INSERT INTO walizka values(default, 10, 'czerwony', 1);
+INSERT INTO walizka values(default, 20, default, 3);
 ```
 ## Zadanie 3
 ```sql
@@ -39,7 +39,7 @@ INSERT INTO statek values('statek2', 'duzy', '1987-05-12', 400);
 ALTER TABLE postac ADD funkcja varchar(100);
 UPDATE postac SET funkcja='kapitan' WHERE id_postaci=1;
 ALTER TABLE postac ADD  statek;
-ALTER TABLE postac ADD foreign key(statek) REFERENCES statek(nazwa_statku);
+ALTER TABLE postac ADD foreign key(statek) REFERENCES statek(nazwa_statku) on delete set null;
 UPDATE postac SET statek='statek1' WHERE id_postaci=1;
 UPDATE postac SET statek='statek1' WHERE id_postaci=2;
 UPDATE postac SET statek='statek1' WHERE id_postaci=4;
