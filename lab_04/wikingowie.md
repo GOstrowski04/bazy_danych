@@ -28,17 +28,17 @@ INSERT INTO przetwory values(default, '1950', 1, 'bigos', default, 3);
 ```
 ## Zadanie 5
 ```sql
-INSERT INTO postac values(default, 'wiking1', 'wiking', '1832-06-15', 180);
-INSERT INTO postac values(default, 'wiking2', 'wiking', '1832-06-15', 180);
-INSERT INTO postac values(default, 'wiking3', 'wiking', '1832-06-15', 180);
-INSERT INTO postac values(default, 'wiking4', 'wiking', '1832-06-15', 180);
-INSERT INTO postac values(default, 'wiking5', 'wiking', '1832-06-15', 180);
+INSERT INTO postac values
+(default, 'wiking1', 'wiking', '1832-06-15', 180),
+(default, 'wiking2', 'wiking', '1832-06-15', 180),
+(default, 'wiking3', 'wiking', '1832-06-15', 180),
+(default, 'wiking4', 'wiking', '1832-06-15', 180),
+(default, 'wiking5', 'wiking', '1832-06-15', 180);
 CREATE TABLE statek (nazwa_statku varchar(200) primary key, rodzaj_statku enum('maly','sredni','duzy'), data_wodowania date, max_ladownosc int unsigned);
-INSERT INTO statek values('statek1', 'sredni', '1986-01-27', 200);
-INSERT INTO statek values('statek2', 'duzy', '1987-05-12', 400);
+INSERT INTO statek values ('statek1', 'sredni', '1986-01-27', 200), ('statek2', 'duzy', '1987-05-12', 400);
 ALTER TABLE postac ADD funkcja varchar(100);
 UPDATE postac SET funkcja='kapitan' WHERE id_postaci=1;
-ALTER TABLE postac ADD  statek;
+ALTER TABLE postac ADD  statek default null;
 ALTER TABLE postac ADD foreign key(statek) REFERENCES statek(nazwa_statku) on delete set null;
 UPDATE postac SET statek='statek1' WHERE id_postaci=1;
 UPDATE postac SET statek='statek1' WHERE id_postaci=2;
