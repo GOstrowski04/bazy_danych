@@ -31,8 +31,8 @@ INSERT INTO przetwory values(default, '1950', 1, 'bigos', default, 3);
 INSERT INTO postac values
 (default, 'wiking1', 'wiking', '1832-06-15', 180),
 (default, 'wiking2', 'wiking', '1832-06-15', 180),
-(default, 'wiking3', 'wiking', '1832-06-15', 180),
-(default, 'wiking4', 'wiking', '1832-06-15', 180),
+(default, 'wiking3', 'wiking', '1832-06-15', 462),
+(default, 'wiking4', 'wiking', '1832-06-15', 300),
 (default, 'wiking5', 'wiking', '1832-06-15', 180);
 CREATE TABLE statek (nazwa_statku varchar(200) primary key, rodzaj_statku enum('maly','sredni','duzy'), data_wodowania date, max_ladownosc int unsigned);
 INSERT INTO statek values ('statek1', 'sredni', '1986-01-27', 200), ('statek2', 'duzy', '1987-05-12', 400);
