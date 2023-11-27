@@ -90,7 +90,6 @@ insert into marynarz select * from postac where statek is not null;
 alter table marynarz add foreign key (statek) references statek(nazwa_statku);
 ```
 ## Zadanie 5
-dokończyć
 ```sql
 #Zadanie 5
 delete from postac where nazwa = 'wiking2';
