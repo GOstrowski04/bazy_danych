@@ -9,29 +9,59 @@ create table wyprawa as select * from wikingowie.wyprawa;
 ```
 ### b)
 ```sql
-SELECT * FROM kreatura OUTER JOIN wyprawa ON kreatura.idKreatury = wyprawa.idKreatury where wyprawa.idKreatury is null;
 ```
 ### c)
 ```sql
-
 ```
 
 # ZADANIE 2
 ### a)
 ```sql
-SELECT nazwa, liczba_uczestnikow, group_concat(uczestnicy.nazwa SEPARATOR ', ') FROM wyprawa join uczestnicy on wyprawa.idWyprawy = uczestnicy.idWyprawy
-```
-
-
-# Zadanie 3
-### a)
-```sql
-Select nazwa, ifNull(count(wyprawa.idSektoru), 0) FROM sektor outer join wyprawa on sektor.idSektoru = wyprawa.idSektoru group by nazwa;
+SELECT wyprawa.nazwa, count(id_uczestnika), group_concat(kreatura.nazwa SEPARATOR ', ') FROM wyprawa join uczestnicy on wyprawa.id_wyprawy = uczestnicy.id_wyprawy join kreatura on uczestnicy.id_uczestnika = kreatura.idKreatury group by wyprawa.nazwa;
 ```
 ### b)
 ```sql
-Select nazwa, ifNull(count(wyprawa.idKreatury), 0) FROM kreatura outer join wyprawa on kreatura.idKreatury = wyprawa.idKreatury group by nazwa;
+select idEtapu, sektor.nazwa, kolejnosc, wyprawa.data_rozpoczecia, kreatura.nazwa, dziennik from etapy_wyprawy 
+join wyprawa on etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy 
+join kreatura on wyprawa.kierownik = kreatura.idKreatury 
+join sektor on etapy_wyprawy.sektor = sektor.id_sektora 
+order by wyprawa.data_rozpoczecia asc, etapy_wyprawy.kolejnosc asc;
+```
+# Zadanie 3
+### a)
+```sql
+select sektor.nazwa, count(etapy_wyprawy.sektor) from sektor left outer join etapy_wyprawy on sektor.id_sektora = etapy_wyprawy.sektor group by sektor.nazwa;
+```
+### b)
+```sql
+select idKreatury, kreatura.nazwa, if(count(id_wyprawy) > 0, "Brał udział w wyprawie.", "Nie brał udziału w wyprawie") from kreatura
+left outer join uczestnicy on kreatura.idKreatury = uczestnicy.id_uczestnika
+group by idKreatury, kreatura.nazwa;
 ```
 
 # Zadanie 4
 ### a)
+```sql
+select wyprawa.nazwa, sum(length(etapy_wyprawy.dziennik)) from wyprawa
+join etapy_wyprawy on wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy
+group by wyprawa.nazwa having (sum(length(etapy_wyprawy.dziennik)) < 400);
+```
+### b)
+```sql
+select wyprawa.nazwa, sum(zasob.waga*zasob.ilosc)/count(uczestnicy.id_uczestnika) as srednia from wyprawa 
+join uczestnicy on wyprawa.id_wyprawy = uczestnicy.id_wyprawy 
+join kreatura on uczestnicy.id_uczestnika = kreatura.idKreatury
+join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury
+join zasob on ekwipunek.idZasobu = zasob.idZasobu 
+group by wyprawa.nazwa;
+```
+# Zadanie 5
+### a)
+```sql
+select wyprawa.nazwa, sum(zasob.waga*ekwipunek.ilosc)/count(distinct uczestnicy.id_uczestnika) as srednia from wyprawa 
+join uczestnicy on wyprawa.id_wyprawy = uczestnicy.id_wyprawy 
+join kreatura on uczestnicy.id_uczestnika = kreatura.idKreatury
+join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury
+join zasob on ekwipunek.idZasobu = zasob.idZasobu 
+group by wyprawa.nazwa;
+```
