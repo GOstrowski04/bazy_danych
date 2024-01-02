@@ -48,7 +48,7 @@ group by wyprawa.nazwa having (sum(length(etapy_wyprawy.dziennik)) < 400);
 ```
 ### b)
 ```sql
-select wyprawa.nazwa, sum(zasob.waga*zasob.ilosc)/count(uczestnicy.id_uczestnika) as srednia from wyprawa 
+select wyprawa.nazwa, sum(zasob.waga*ekwipunek.ilosc)/count(distinct uczestnicy.id_uczestnika) as srednia from wyprawa 
 join uczestnicy on wyprawa.id_wyprawy = uczestnicy.id_wyprawy 
 join kreatura on uczestnicy.id_uczestnika = kreatura.idKreatury
 join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury
@@ -58,10 +58,9 @@ group by wyprawa.nazwa;
 # Zadanie 5
 ### a)
 ```sql
-select wyprawa.nazwa, sum(zasob.waga*ekwipunek.ilosc)/count(distinct uczestnicy.id_uczestnika) as srednia from wyprawa 
-join uczestnicy on wyprawa.id_wyprawy = uczestnicy.id_wyprawy 
-join kreatura on uczestnicy.id_uczestnika = kreatura.idKreatury
-join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury
-join zasob on ekwipunek.idZasobu = zasob.idZasobu 
-group by wyprawa.nazwa;
+select kreatura.nazwa, datediff(wyprawa.data_rozpoczecia, kreatura.dataUr) as wiek_w_dniach from kreatura 
+join uczestnicy on kreatura.idKreatury = uczestnicy.id_uczestnika
+join wyprawa on uczestnicy.id_wyprawy = wyprawa.id_wyprawy
+join etapy_wyprawy on wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy
+group by kreatura.nazwa having count(etapy_wyprawy.sektor = 7) > 0;
 ```
